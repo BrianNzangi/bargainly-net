@@ -1,16 +1,16 @@
-# Backend Deployment Guide
+# Bargainly Deployment Guide
 
-This guide covers deploying the Bargainly backend (Nuxt/Nitro) to production hosting platforms.
+Complete guide for deploying Bargainly to production using **Render** (backend) and **Vercel** (frontend).
 
 ## Prerequisites
 
-- GitHub repository set up: `https://github.com/BrianNzangi/bargainly-net`
+- GitHub repository: `https://github.com/BrianNzangi/bargainly-net`
 - Supabase project with database configured
 - Environment variables ready
 
-## Deployment Options
+---
 
-### Option 1: Render (Recommended)
+## Part 1: Deploy Backend to Render
 
 Render is ideal for this Nuxt backend because it supports traditional Node.js servers without requiring code changes.
 
@@ -57,141 +57,91 @@ Render is ideal for this Nuxt backend because it supports traditional Node.js se
 
 ---
 
-### Option 2: Vercel
+## Part 2: Deploy Frontend to Vercel
 
-Vercel can host the backend as serverless functions, but requires a configuration change.
+Vercel is the ideal platform for Next.js applications with zero configuration needed.
 
-#### Setup Steps
+### Setup Steps
 
-1. **Update Configuration**
-   
-   Edit `backend/nuxt.config.ts`:
-   ```typescript
-   nitro: {
-     preset: 'vercel',  // Change from 'node-server'
-     // ... rest of config
-   }
-   ```
-
-2. **Create Vercel Project**
+1. **Create Vercel Account**
    - Go to [vercel.com](https://vercel.com)
-   - Import `BrianNzangi/bargainly-net` repository
-   - Framework Preset: Nuxt.js
-   - Root Directory: `backend`
+   - Sign up with GitHub
 
-3. **Configure Build Settings**
+2. **Import Project**
+   - Click "Add New..." → "Project"
+   - Import `BrianNzangi/bargainly-net` repository
+   - Vercel auto-detects Next.js
+
+3. **Configure Project**
    ```
-   Build Command: npm run build
-   Output Directory: .output
+   Framework Preset: Next.js
+   Root Directory: frontend
+   Build Command: npm run build (auto-detected)
+   Output Directory: .next (auto-detected)
    Install Command: npm install
    ```
 
 4. **Set Environment Variables**
+   Add these in Vercel's Environment Variables section:
    ```
-   SUPABASE_URL
-   SUPABASE_SERVICE_ROLE_KEY
-   ENCRYPTION_KEY
-   NODE_ENV=production
+   NEXT_PUBLIC_API_URL=https://your-backend-url.onrender.com
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
    ```
 
 5. **Deploy**
    - Click "Deploy"
-   - Your API will be at: `https://bargainly-backend.vercel.app`
+   - Vercel builds and deploys automatically
+   - Your site will be at: `https://bargainly.vercel.app`
 
-#### Vercel Considerations
-- Serverless functions have execution time limits (10-60s depending on plan)
-- Better for stateless API endpoints
-- Excellent for edge deployment
-
----
-
-### Option 3: Railway
-
-Railway offers simple deployment with generous free tier.
-
-#### Setup Steps
-
-1. **Create Railway Account**
-   - Go to [railway.app](https://railway.app)
-   - Sign in with GitHub
-
-2. **New Project**
-   - Click "New Project" → "Deploy from GitHub repo"
-   - Select `bargainly-net` repository
-
-3. **Configure Service**
-   ```
-   Root Directory: backend
-   Build Command: npm install && npm run build
-   Start Command: node .output/server/index.mjs
-   ```
-
-4. **Environment Variables**
-   Add in Railway's Variables section:
-   ```
-   NODE_ENV=production
-   SUPABASE_URL=your_url
-   SUPABASE_SERVICE_ROLE_KEY=your_key
-   ENCRYPTION_KEY=your_key
-   ```
-
-5. **Generate Domain**
-   - Railway auto-generates a domain
-   - Or add custom domain in settings
+6. **Add Custom Domain (Optional)**
+   - Go to Project Settings → Domains
+   - Add your custom domain (e.g., `bargainly.net`)
+   - Follow DNS configuration instructions
 
 ---
 
-## Post-Deployment Setup
+## Part 3: Post-Deployment Configuration
 
-### 1. Test API Endpoints
+### 1. Update Backend CORS
 
-```bash
-# Health check
-curl https://your-backend-url.com/api/v1/settings
+After deploying frontend, update `backend/nuxt.config.ts` to restrict CORS:
 
-# Test products endpoint
-curl https://your-backend-url.com/api/v1/products
-```
-
-### 2. Update Frontend Configuration
-
-Update `frontend/.env.local`:
-```env
-NEXT_PUBLIC_API_URL=https://your-backend-url.com
-```
-
-### 3. CORS Configuration
-
-The backend is already configured for CORS in `nuxt.config.ts`:
 ```typescript
 routeRules: {
   '/api/**': {
     cors: true,
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      // ...
+      'Access-Control-Allow-Origin': 'https://bargainly.vercel.app',
+      'Access-Control-Allow-Methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization'
     }
   }
 }
 ```
 
-For production, consider restricting to your frontend domain:
-```typescript
-'Access-Control-Allow-Origin': 'https://your-frontend-domain.com'
-```
+Commit and push to trigger automatic redeployment on Render.
 
-### 4. Database Migrations
-
-If you have pending migrations, run them after deployment:
+### 2. Test Full Stack
 
 ```bash
-# SSH into your server or use platform CLI
-npm run migrate
+# Test backend API
+curl https://your-backend.onrender.com/api/v1/products
+
+# Visit frontend
+open https://bargainly.vercel.app
 ```
 
-### 5. Seed Admin User (if needed)
+### 3. Database Migrations
+
+Run migrations on Render:
+- Go to Render dashboard → Your service → Shell
+- Run: `npm run migrate`
+
+### 4. Seed Admin User
 
 ```bash
+# In Render shell
 npm run seed:admin
 ```
 
@@ -199,92 +149,143 @@ npm run seed:admin
 
 ## Environment Variables Reference
 
+### Backend (Render)
+
 | Variable | Description | Required | Example |
 |----------|-------------|----------|---------|
 | `NODE_ENV` | Environment mode | Yes | `production` |
 | `SUPABASE_URL` | Supabase project URL | Yes | `https://xxx.supabase.co` |
-| `SUPABASE_SERVICE_ROLE_KEY` | Service role key for admin operations | Yes | `eyJhbGc...` |
-| `ENCRYPTION_KEY` | Key for encrypting sensitive settings | Yes | 32+ character string |
+| `SUPABASE_SERVICE_ROLE_KEY` | Service role key | Yes | `eyJhbGc...` |
+| `ENCRYPTION_KEY` | Encryption key (32+ chars) | Yes | `your-secure-key-here` |
+
+### Frontend (Vercel)
+
+| Variable | Description | Required | Example |
+|----------|-------------|----------|---------|
+| `NEXT_PUBLIC_API_URL` | Backend API URL | Yes | `https://bargainly-backend.onrender.com` |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase URL | Yes | `https://xxx.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key | Yes | `eyJhbGc...` |
 
 ---
 
 ## Monitoring & Logs
 
-### Render
-- View logs in dashboard under "Logs" tab
-- Set up log drains for external monitoring
+### Render (Backend)
+- View real-time logs in dashboard
+- Set up health checks
+- Configure alerts for downtime
 
-### Vercel
-- Real-time logs in deployment dashboard
-- Integrate with monitoring tools (Sentry, LogRocket)
-
-### Railway
-- Built-in observability dashboard
-- View metrics and logs in real-time
+### Vercel (Frontend)
+- Analytics dashboard for performance metrics
+- Real-time function logs
+- Error tracking integration
 
 ---
 
 ## Troubleshooting
 
-### Build Fails
+### Backend Issues
 
-**Issue**: `npm install` fails
-- **Solution**: Check Node.js version compatibility (use Node 18+)
-- Add `engines` field to `package.json`:
-  ```json
-  "engines": {
-    "node": ">=18.0.0"
-  }
-  ```
+**Build Fails on Render**
+- Check Node.js version (18+ required)
+- Verify all dependencies in `package.json`
+- Review build logs for specific errors
 
-### API Returns 500 Errors
+**API Returns 500 Errors**
+- Verify environment variables are set correctly
+- Check Supabase connection
+- Review Render logs for error details
 
-**Issue**: Database connection fails
-- **Solution**: Verify `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`
-- Check Supabase project is active and accessible
+**Service Spins Down (Free Tier)**
+- Upgrade to Starter plan ($7/month) for always-on
+- Or implement a ping service to keep it active
 
-### CORS Errors
+### Frontend Issues
 
-**Issue**: Frontend can't access API
-- **Solution**: Update CORS headers in `nuxt.config.ts`
-- Ensure frontend domain is allowed
+**Build Fails on Vercel**
+- Check for TypeScript errors
+- Verify all environment variables are set
+- Review build logs
+
+**API Connection Fails**
+- Verify `NEXT_PUBLIC_API_URL` is correct
+- Check CORS configuration on backend
+- Ensure backend is running
+
+**Environment Variables Not Working**
+- Must start with `NEXT_PUBLIC_` for client-side access
+- Redeploy after adding new variables
 
 ---
 
 ## Continuous Deployment
 
-All platforms support automatic deployments:
+Both platforms support automatic deployments:
 
-1. **Push to GitHub** → Automatic deployment triggered
-2. **Pull Request Previews** → Test changes before merging
-3. **Rollback** → Revert to previous deployment if issues occur
+### Render
+- **Auto-deploy**: Pushes to `main` branch trigger deployment
+- **Manual deploy**: Use "Manual Deploy" button in dashboard
+- **Rollback**: Revert to previous deployment anytime
+
+### Vercel
+- **Auto-deploy**: Every push creates a deployment
+- **Preview deployments**: Pull requests get preview URLs
+- **Production**: Only `main` branch deploys to production
+- **Instant rollback**: One-click rollback to any previous deployment
 
 ---
 
-## Recommended Setup
+## Production Checklist
 
-For production, we recommend:
+Before going live, ensure:
 
-- **Backend**: Render (Starter plan - $7/month)
-- **Frontend**: Vercel (Free tier or Pro)
-- **Database**: Supabase (Free tier or Pro)
+- [ ] Backend deployed to Render and accessible
+- [ ] Frontend deployed to Vercel and accessible
+- [ ] All environment variables configured correctly
+- [ ] CORS properly restricted to frontend domain
+- [ ] Database migrations run successfully
+- [ ] Admin user seeded
+- [ ] Custom domain configured (if applicable)
+- [ ] SSL certificates active (automatic on both platforms)
+- [ ] API endpoints tested and working
+- [ ] Frontend can communicate with backend
+- [ ] Error monitoring set up
+- [ ] Backup strategy in place for database
 
-This combination provides:
-- ✅ Reliable uptime
-- ✅ Easy scaling
-- ✅ Automatic SSL
-- ✅ Global CDN
-- ✅ Simple CI/CD
+---
+
+## Cost Estimate
+
+### Recommended Production Setup
+
+| Service | Plan | Cost |
+|---------|------|------|
+| **Render** (Backend) | Starter | $7/month |
+| **Vercel** (Frontend) | Hobby (Free) | $0/month |
+| **Supabase** (Database) | Free tier | $0/month |
+| **Total** | | **$7/month** |
+
+### Scaling Considerations
+
+As your app grows:
+- **Render**: Upgrade to Standard ($25/mo) for better performance
+- **Vercel**: Pro plan ($20/mo) for team features and analytics
+- **Supabase**: Pro plan ($25/mo) for more resources
 
 ---
 
 ## Next Steps
 
-1. Choose your hosting platform
-2. Set up deployment following the guide above
-3. Configure environment variables
-4. Deploy and test
-5. Update frontend to use production API URL
-6. Monitor logs and performance
+1. ✅ Deploy backend to Render
+2. ✅ Deploy frontend to Vercel  
+3. ✅ Configure environment variables
+4. ✅ Update CORS settings
+5. ✅ Run migrations and seed data
+6. ✅ Test full application
+7. 🚀 Go live!
 
-For issues or questions, refer to the platform-specific documentation or check the troubleshooting section above.
+For support:
+- **Render**: [render.com/docs](https://render.com/docs)
+- **Vercel**: [vercel.com/docs](https://vercel.com/docs)
+- **Supabase**: [supabase.com/docs](https://supabase.com/docs)
+
