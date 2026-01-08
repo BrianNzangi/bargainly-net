@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+:root {
+  /* Primary Brand Colors (Red Palette) */
+  --primary-50: #ffece9;
+  --primary-100: #ffd8d3;
+  --primary-200: #ffc4be;
+  --primary-300: #ffb0a8;
+  --primary-400: #fd9c93;
+  --primary-500: #fa877e;
+  --primary-600: #f67169;
+  --primary-700: #f15953;
+  --primary-800: #eb3c3d;
+  --primary-900: #e50022;
+
+  /* Secondary Brand Colors (Dark Blue) */
+  --secondary-50: #e2e4e9;
+  --secondary-100: #c6cad4;
+  --secondary-200: #abb0bf;
+  --secondary-300: #9096aa;
+  --secondary-400: #767e96;
+  --secondary-500: #5e6682;
+  --secondary-600: #464f6e;
+  --secondary-700: #30395b;
+  --secondary-800: #1b2348;
+  --secondary-900: #090e35;
+
+  /* Accent Color (Primary Red) */
+  --accent: #e50022;
+
+  /* Neutral Colors (OKLCH) */
+  --neutral-50: oklch(98.5% 0 0);
+  --neutral-100: oklch(97% 0 0);
+  --neutral-200: oklch(92.2% 0 0);
+  --neutral-300: oklch(87% 0 0);
+  --neutral-400: oklch(70.8% 0 0);
+  --neutral-500: oklch(55.6% 0 0);
+  --neutral-600: oklch(43.9% 0 0);
+  --neutral-700: oklch(37.1% 0 0);
+  --neutral-800: oklch(26.9% 0 0);
+  --neutral-900: oklch(20.5% 0 0);
+  --neutral-950: oklch(14.5% 0 0);
+}
+
+@theme {
+  /* Define Tailwind color utilities */
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
+
+  --color-secondary-50: var(--secondary-50);
+  --color-secondary-100: var(--secondary-100);
+  --color-secondary-200: var(--secondary-200);
+  --color-secondary-300: var(--secondary-300);
+  --color-secondary-400: var(--secondary-400);
+  --color-secondary-500: var(--secondary-500);
+  --color-secondary-600: var(--secondary-600);
+  --color-secondary-700: var(--secondary-700);
+  --color-secondary-800: var(--secondary-800);
+  --color-secondary-900: var(--secondary-900);
+
+  --color-accent: var(--accent);
+
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-950: var(--neutral-950);
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+}

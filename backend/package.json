@@ -1,0 +1,27 @@
+{
+  "name": "nitro-backend",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "seed:admin": "tsx scripts/seed-admin.ts",
+    "inspect:schema": "tsx scripts/inspect-schema.ts",
+    "migrate": "tsx scripts/run-migration.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.89.0",
+    "jose": "^6.1.3",
+    "nuxt": "^4.2.2",
+    "vue": "^3.5.26",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "dotenv": "^17.2.3",
+    "tsx": "^4.21.0"
+  }
+}
