@@ -1,22 +1,7 @@
-export interface Product {
-    id: string
-    name: string
-    price: number
-    sale_price?: number
-    created_at: string
-    updated_at?: string
-    description?: string
-    image_url?: string
-    category?: string
-    stock?: number
-}
+// Re-export all types from database.ts
+export * from './database'
 
-export interface User {
-    id: string
-    email: string
-    name?: string
-}
-
+// Additional types specific to auth
 export interface AuthSession {
     user: User
     accessToken: string

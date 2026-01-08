@@ -1,5 +1,5 @@
 import { getSupabaseAdmin } from '../utils/supabase'
-import type { ApiTemplate, CreateApiTemplateInput, UpdateApiTemplateInput } from '../../shared/types/database'
+import type { ApiTemplate, CreateApiTemplateInput, UpdateApiTemplateInput } from '../shared/types'
 
 export class ApiTemplateRepository {
     private getClient() {

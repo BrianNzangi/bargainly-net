@@ -1,5 +1,5 @@
 import { SettingRepository } from '../repositories/setting.repository'
-import type { Setting, CreateSettingInput, UpdateSettingInput } from '../../../shared/types/database'
+import type { Setting, CreateSettingInput, UpdateSettingInput } from '../shared/types'
 import { createCipheriv, createDecipheriv, randomBytes } from 'crypto'
 
 /**

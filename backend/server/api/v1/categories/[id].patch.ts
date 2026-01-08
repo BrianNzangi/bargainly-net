@@ -1,6 +1,6 @@
 import { requireAuth } from '../../../utils/auth'
 import { CategoryService } from '../../../services/category.service'
-import type { UpdateCategoryInput } from '../../../../shared/types/database'
+import type { UpdateCategoryInput } from '../../../../shared/types'
 
 /**
  * PATCH /api/v1/categories/:id

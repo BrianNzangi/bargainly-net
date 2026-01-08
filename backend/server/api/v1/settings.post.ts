@@ -1,5 +1,5 @@
 import { SettingService } from '../../services/setting.service'
-import type { CreateSettingInput } from '../../../../shared/types/database'
+import type { CreateSettingInput } from '../shared/types'
 
 export default defineEventHandler(async (event) => {
     try {

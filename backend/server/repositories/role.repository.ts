@@ -1,5 +1,5 @@
 import { getSupabaseAdmin } from '../utils/supabase'
-import type { Role } from '../../shared/types/database'
+import type { Role } from '../shared/types'
 
 export class RoleRepository {
     private getClient() {

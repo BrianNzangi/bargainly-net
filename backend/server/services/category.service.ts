@@ -1,5 +1,5 @@
 import { CategoryRepository } from '../repositories/category.repository'
-import type { Category, CreateCategoryInput, UpdateCategoryInput } from '../../../shared/types/database'
+import type { Category, CreateCategoryInput, UpdateCategoryInput } from '../shared/types'
 
 /**
  * Category Service

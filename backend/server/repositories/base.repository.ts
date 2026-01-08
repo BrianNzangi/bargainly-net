@@ -1,5 +1,5 @@
 import { getSupabaseAdmin } from '../utils/supabase'
-import type { PaginationParams, PaginatedResponse } from '../../../shared/types/database'
+import type { PaginationParams, PaginatedResponse } from '../shared/types'
 
 export interface QueryFilters {
     [key: string]: any

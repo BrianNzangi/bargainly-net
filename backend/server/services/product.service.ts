@@ -1,5 +1,5 @@
 import { ProductRepository } from '../repositories/product.repository'
-import type { Product, CreateProductInput, UpdateProductInput } from '../../../shared/types/database'
+import type { Product, CreateProductInput, UpdateProductInput } from '../shared/types'
 
 /**
  * Product Service

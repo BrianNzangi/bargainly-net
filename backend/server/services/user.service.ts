@@ -1,5 +1,5 @@
 import { UserRepository } from '../repositories/user.repository'
-import type { User, CreateUserInput, UpdateUserInput } from '../../../shared/types/database'
+import type { User, CreateUserInput, UpdateUserInput } from '../shared/types'
 
 /**
  * User Service

@@ -1,6 +1,6 @@
 import { requireAuth } from '../../utils/auth'
 import { ProductService } from '../../services/product.service'
-import type { CreateProductInput } from '../../../shared/types/database'
+import type { CreateProductInput } from '../shared/types'
 
 /**
  * POST /api/v1/products

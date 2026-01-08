@@ -1,5 +1,5 @@
 import { BaseRepository } from './base.repository'
-import type { Guide, GuideWithAuthor, GuideWithCategory, GuideFilters } from '../../../shared/types/database'
+import type { Guide, GuideWithAuthor, GuideWithCategory, GuideFilters } from '../shared/types'
 
 /**
  * Guide Repository

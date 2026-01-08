@@ -1,6 +1,6 @@
 import { requireAuth } from '../../../utils/auth'
 import { UserService } from '../../../services/user.service'
-import type { UpdateUserInput } from '../../../../shared/types/database'
+import type { UpdateUserInput } from '../../../../shared/types'
 
 /**
  * PATCH /api/v1/users/:id

@@ -1,7 +1,7 @@
 import { GuideRepository } from '../repositories/guide.repository'
 import { UserRepository } from '../repositories/user.repository'
 import { CategoryRepository } from '../repositories/category.repository'
-import type { Guide, CreateGuideInput, UpdateGuideInput, GuideWithAuthor } from '../../../shared/types/database'
+import type { Guide, CreateGuideInput, UpdateGuideInput, GuideWithAuthor } from '../shared/types'
 
 /**
  * Guide Service

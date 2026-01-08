@@ -1,5 +1,5 @@
 import { RoleService } from '../../../services/role.service'
-import type { Role } from '../../../../shared/types/database'
+import type { Role } from '../../../../shared/types'
 
 export default defineEventHandler(async (event) => {
     // Require authentication

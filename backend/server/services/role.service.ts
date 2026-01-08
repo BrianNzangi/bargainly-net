@@ -1,5 +1,5 @@
 import { RoleRepository } from '../repositories/role.repository'
-import type { Role } from '../../shared/types/database'
+import type { Role } from '../shared/types'
 
 export class RoleService {
     private repository: RoleRepository

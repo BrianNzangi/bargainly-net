@@ -1,6 +1,6 @@
 import { requireAuth } from '../../utils/auth'
 import { GuideService } from '../../services/guide.service'
-import type { CreateGuideInput } from '../../../shared/types/database'
+import type { CreateGuideInput } from '../shared/types'
 
 /**
  * POST /api/v1/guides

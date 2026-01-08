@@ -1,6 +1,6 @@
 import { requireAuth } from '../../../utils/auth'
 import { ProductService } from '../../../services/product.service'
-import type { UpdateProductInput } from '../../../../shared/types/database'
+import type { UpdateProductInput } from '../../../../shared/types'
 
 /**
  * PATCH /api/v1/products/:id

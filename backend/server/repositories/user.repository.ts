@@ -1,5 +1,5 @@
 import { BaseRepository } from './base.repository'
-import type { User, UserFilters } from '../../../shared/types/database'
+import type { User, UserFilters } from '../shared/types'
 
 /**
  * User Repository

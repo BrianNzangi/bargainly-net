@@ -1,5 +1,5 @@
 import { ApiTemplateRepository } from '../repositories/api-template.repository'
-import type { ApiTemplate, CreateApiTemplateInput, UpdateApiTemplateInput } from '../../shared/types/database'
+import type { ApiTemplate, CreateApiTemplateInput, UpdateApiTemplateInput } from '../shared/types'
 
 export class ApiTemplateService {
     private repository: ApiTemplateRepository

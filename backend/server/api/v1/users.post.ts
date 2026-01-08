@@ -1,6 +1,6 @@
 import { requireAuth } from '../../utils/auth'
 import { UserService } from '../../services/user.service'
-import type { CreateUserInput } from '../../../shared/types/database'
+import type { CreateUserInput } from '../shared/types'
 
 /**
  * POST /api/v1/users

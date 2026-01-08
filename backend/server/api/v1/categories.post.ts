@@ -1,6 +1,6 @@
 import { requireAuth } from '../../utils/auth'
 import { CategoryService } from '../../services/category.service'
-import type { CreateCategoryInput } from '../../../shared/types/database'
+import type { CreateCategoryInput } from '../shared/types'
 
 /**
  * POST /api/v1/categories

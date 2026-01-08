@@ -1,5 +1,5 @@
 import { BaseRepository } from './base.repository'
-import type { Setting, CreateSettingInput, UpdateSettingInput, SettingFilters } from '../../../shared/types/database'
+import type { Setting, CreateSettingInput, UpdateSettingInput, SettingFilters } from '../shared/types'
 
 /**
  * Repository for managing application settings

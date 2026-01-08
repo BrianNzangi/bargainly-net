@@ -1,5 +1,5 @@
 import { BaseRepository } from './base.repository'
-import type { Category } from '../../../shared/types/database'
+import type { Category } from '../shared/types'
 
 /**
  * Category Repository

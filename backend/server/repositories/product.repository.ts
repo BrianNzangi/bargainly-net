@@ -1,5 +1,5 @@
 import { BaseRepository } from './base.repository'
-import type { Product, ProductFilters } from '../../../shared/types/database'
+import type { Product, ProductFilters } from '../shared/types'
 
 /**
  * Product Repository
